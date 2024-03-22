@@ -3,10 +3,6 @@
 #include <fstream>
 #include <cstring>
 
-
-using namespace std;
-
-
 int main(){
     //TEST
 
@@ -15,9 +11,12 @@ int main(){
     //true or false and of course implement the database with allowed users
     //and credentials. So far the test for reading and populating stores with
     //comics from files was decent.
-    Store s1("C:\\Users\\Matei\\ClionProjects\\POO\\store1.txt");
-    vector<Comic> all = s1.getAllComics();
-    for(auto i : all){
-        std::cout << i;
-    }
+    std::string usernameFromConsole, passwordFromConsole;
+    std::cout << "Credential check: user: ";
+    std::cin >> usernameFromConsole;
+    std::cout << "password: ";
+    std::cin >> passwordFromConsole;
+    Database d1("bd", usernameFromConsole, passwordFromConsole);
+    d1.printDatabase();
+    
 }

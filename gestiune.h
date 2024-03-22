@@ -5,6 +5,7 @@
 #define POO_GESTIUNE_H
 #include <vector>
 #include <string>
+#include <map>
 
 //COMIC CLASS
 class Comic{
@@ -45,6 +46,22 @@ public:
     //testing of the database functionality
     std::vector<Comic> getAllComics() const;
     std::vector<Comic> getAvailableComics() const;
+    friend std::ostream& operator<<(std::ostream& os, const Store& st);
+};
+
+
+//USER CLASS
+class User{
+protected:
+    //Basic user-password combination
+    std::string username;
+    std::string password;
+    std::vector<Comic> wishlist;
+    int priceToBePaid;
+public:
+    //Possibly useful in the future?
+    std::string getPassword();
+    User(std::string user_, std::string pass_);
 };
 
 //DATABASE CLASS
@@ -52,22 +69,15 @@ class Database{
 private:
     //Vectors of user-password pairs and the list of
     //stores inside the database, so we know what to display
-    std::vector<std::pair<std::string, std::string>> validUsers;
+    std::map<std::string, std::string> validUsers;
     std::vector<Store> stores;
 public:
     //Basic contructor - NOT YET IMPLEMENTED
-    Database();
-};
-
-//USER CLASS
-class User{
-private:
-    //Basic user-password combination
-    std::string username;
-    std::string password;
-public:
-    //Possibly useful in the future?
-    std::string getPassword();
+    Database(std::string folderName, std::string user_, std::string pass_);
+    void printDatabase();
+    int returnusersize(){
+        return validUsers.size();
+    }
 };
 
 #endif //POO_GESTIUNE_H

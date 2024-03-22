@@ -4,6 +4,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 #include "gestiune.h"
 
 //COMIC
@@ -45,15 +46,12 @@ Store::Store(std::string filename){
     std::vector<std::string> vec;
     std::string line;
     bool eof = false;
-    while(!eof){
+    while(!file.eof()){
         //we add each line to the result vector
         //it's possible to optimise this further? TODO
-        if (std::getline(file, line)) {
-            vec.push_back(line);
-        } else {
-            eof = true;
-            break;
-        }
+        std::getline(file, line);
+        vec.push_back(line);
+        
         //When we reach another set of 3 values
         //that define the Comic, we add the Comic to the Store list
         if(vec.size()%3==0){
@@ -96,5 +94,44 @@ std::vector<Comic> Store::getAvailableComics() const {
     return result;
 }
 
+std::ostream& operator<<(std::ostream& os, const Store& st){
+    for(auto i : st.allComics){
+        std::cout << i;
+    }
+    return os;
+}
+
+//DATABASE CLASS
+Database::Database(std::string folderName, std::string user_, std::string pass_){
+    //database loading
+    for(const auto &entry : std::filesystem::directory_iterator(folderName)){
+        if(entry.path()!="bd/USERS.txt"){
+            Store storeToInsert(entry.path());
+            stores.push_back(storeToInsert);
+        }
+        else{
+            int size = 0;
+            std::ifstream readFromUsers("bd/USERS.txt");
+            std::string line;
+            while(std::getline(readFromUsers, line)){
+                auto firstSpace = line.find(' ');
+                std::string user = line.substr(0, firstSpace);
+                std::string password = line.substr(firstSpace+1, std::string::npos);
+                validUsers.insert({user, password});
+            }
+        }
+    }
+}
+
+void Database::printDatabase(){
+    std::cout << "The users: " << std::endl;
+    for(auto i : validUsers){
+        std::cout << i.first << ' ' << i.second << std::endl;
+    }
+    std::cout << "The stores and comics: " << std::endl;
+    for(auto i : stores){
+        std::cout << i << '\n';
+    }
+}
 //END OF STORE
 
