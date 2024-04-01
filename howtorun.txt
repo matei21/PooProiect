@@ -1,0 +1,7 @@
+ON LINUX/UBUNTU:
+
+The files are perfect in order for the project to run on VSCode and CLion, but
+
+-cmake needs to be installed and the path to cmake needs to be specified inside of settings.json
+-on Clion at least, the Run>Edit Configurations>Working directory needs to be set to PooProiect so that it sees the subfolders and knows where to initialise the "database" from
+-- g++ needs to be modern, at least 2017, otherwise it doesn't recognize <filesystem> library

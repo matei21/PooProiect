@@ -16,9 +16,6 @@ private:
     long int comicPrice;
     std::string condition;
     std::string storeBelong;
-    //(Maybe) useful functions? Answer: getComicName was :)
-    
-    std::string getComicName() const;
     //The store must have full access to the Comic
     friend class Store;
 
@@ -57,9 +54,8 @@ public:
     //"database" file
     //update: only the database file initialization is relevant, the comic list is
     //impractical for the purpose of this program
-    
-    std::string getStoreName(){return this->storeName;}
     Store(std::string filename);
+    std::string getStoreName(){return this->storeName;}
     //function that allows (the dev, mainly) for the
     //testing of the database functionality
     //update: getAllComics() was unnecesary, findComic is one of the most important
@@ -79,19 +75,19 @@ private:
     int priceToBePaid;
     std::string username;
     std::string password;
-public:
+public: 
     //Possibly useful in the future?
     //update: yes, one of the good predictions. These getters are used in the 
     //authentication program in order to interrogate the users map of the db
-
+    User(std::string user_, std::string pass_);
     std::string getPassword();
     std::string getUsername();
-    User(std::string user_, std::string pass_);
     //all the Wishlist functions
     void addToWishlist(int id, Comic &comic);
     void removeFromWishlist(int id);
     void printWishlist();
     bool isWishListEmpty();
+    friend std::ostream& operator<<(std::ostream& os, User &u1); 
 };
 //END OF STORE CLASS
 

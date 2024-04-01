@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "untitled1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-untitled1-Debug-45d30f96a3c96651272c.json",
+					"jsonFile" : "target-untitled1-Debug-7bd4f876de5dac492a69.json",
 					"name" : "untitled1",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Matei/CLionProjects/POO/cmake-build-debug",
-		"source" : "C:/Users/Matei/CLionProjects/POO"
+		"build" : "/home/matei21/Desktop/PooProiect/cmake-build-debug",
+		"source" : "/home/matei21/Desktop/PooProiect"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

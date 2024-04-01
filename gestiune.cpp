@@ -17,10 +17,6 @@ Comic::Comic(std::string name_, int price_, std::string condition) {
     this->condition = condition;
 }
 
-std::string Comic::getComicName() const {
-    std::string comicNameDouble = comicName;
-    return comicNameDouble;
-}
 long int Comic::getComicPrice() const {
     long int comicPriceDouble = comicPrice;
     return comicPriceDouble;
@@ -31,7 +27,7 @@ void Comic::setStoreName(std::string nameToSet) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Comic& com){
-    os << "Name:" << com.comicName << ", " <<
+    os << "Name: " << com.comicName << ", " <<
        com.comicPrice << " lei in the condition of: " << com.condition << '\n';
     return os;
 }
@@ -72,6 +68,7 @@ Store::Store(std::string filename){
         }
 
     }
+    file.close();
 }
 
 
@@ -136,7 +133,7 @@ std::ostream& operator<<(std::ostream& os, const Store& st){
     for(auto i : st.allComics){
         std::cout << "The comic ";
         std::cout << i.first;
-        std::cout << "is available in the following forms: ";
+        std::cout << " is available in the following forms: ";
         for(auto j : i.second){
             std::cout << j;
         }
@@ -174,8 +171,9 @@ void User::removeFromWishlist(int id) {
 }
 
 void User::printWishlist() {
+    std::cout << "\nThe Wishlist, with a total price of" << priceToBePaid << ": \n";
     for(auto i : wishlist){
-        std::cout << "ID: " << i.first;
+        std::cout << "ID: " << i.first << ' ';
         std::cout << i.second;
         std::cout << '\n';
     }
@@ -183,6 +181,11 @@ void User::printWishlist() {
 
 bool User::isWishListEmpty(){
     return wishlist.size() == 0;
+}
+
+std::ostream& operator<<(std::ostream& os, User &u1){
+    os << u1.username << ", you have " << u1.wishlist.size() << "comics in your wishlist, totalling " << u1.priceToBePaid << "RON. ";
+    return os;
 }
 
 //DATABASE CLASS
