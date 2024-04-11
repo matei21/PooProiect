@@ -1,8 +1,12 @@
-#include "gestiune.h"
+#ifndef POO_INTERFACE_H
+#define POO_INTERFACE_H
+#include "./Comic.h"
+#include "./Store.h"
+#include "./User.h"
+#include "./Database.h"
+#include "./Wishlist.h"
 #include <iostream>
-#include <cstring>
 #include <sstream>
-
 class MainInterface{
 public:
     void run(){
@@ -44,6 +48,7 @@ public:
                     // maxSum = atoi(userInput.substr(userInput.find(')')+2, userInput.rfind(' ')-userInput.find(')')-1).c_str());
                     // desiredCondition = userInput.substr(userInput.rfind(' ')+1, std::string::npos);
                     std::map<int, Comic> results = d1.findComics(desiredName, maxSum, desiredCondition);
+                    std::cout << std::endl;
                     for (auto i: results) {
                         std::cout << "Store: " << i.second.getStoreBelongName() << " with the ID: ";
                         std::cout << i.first;
@@ -62,7 +67,7 @@ public:
                     while(iss >> id){
                         if(results.find(id) != results.end()){
                             std::cout << "The ID: " << id << " has been added!" << std::endl;
-                            u1.addToWishlist(id, results[id]);
+                            u1.userwishlist.addToWishlist(id, results[id]);
                         }
                         else{
                             std::cout << "The id " << id << " does not exist, we have added the other IDs\n";
@@ -76,12 +81,12 @@ public:
                     break;}
                 case '3':{
                     
-                    if(u1.isWishListEmpty()){
+                    if(u1.userwishlist.isWishListEmpty()){
                         std::cout << "Your Wishlist is empty! Add some comics to it!\n";
                         break;
                     }
                     std::cout << u1;
-                    u1.printWishlist();
+                    u1.userwishlist.printWishlist();
                     std::cout << "\nDo you wish to remove any items from your wishlist? If so, write down all the IDs of the comics which you wish to remove\n";
                     std::string input;
                     std::string id;
@@ -90,8 +95,8 @@ public:
                     
                     std::stringstream input1(input);
                     while(std::getline(input1, id, ' ')){
-                        u1.removeFromWishlist(std::atoi(id.c_str()));
-                        std::cout << "Removed id " << id << " from the wishlist!";
+                        u1.userwishlist.removeFromWishlist(std::atoi(id.c_str()));
+                        std::cout << "Removed id " << id << " from the wishlist!\n";
                     }
                     break;
                 }
@@ -111,3 +116,4 @@ public:
     }
 };
 
+#endif

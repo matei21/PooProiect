@@ -1,47 +1,14 @@
-//
-// Created by Matei on 3/15/2024.
-//
-#include <cstring>
+#include "./Store.h"
 #include <fstream>
 #include <iostream>
-#include <filesystem>
-#include "gestiune.h"
-
-//COMIC
-Comic::Comic(){
-
-}
-Comic::Comic(std::string name_, int price_, std::string condition) {
-    this->comicName = name_;
-    this->comicPrice = price_;
-    this->condition = condition;
-}
-
-long int Comic::getComicPrice() const {
-    long int comicPriceDouble = comicPrice;
-    return comicPriceDouble;
-}
-
-void Comic::setStoreName(std::string nameToSet) {
-    this->storeBelong = nameToSet;
-}
-
-std::ostream& operator<<(std::ostream& os, const Comic& com){
-    os << "Name: " << com.comicName << ", " <<
-       com.comicPrice << " lei in the condition of: " << com.condition << '\n';
-    return os;
-}
-
-//END OF COMIC
-
-
-//STORE
+#include <cerrno>
 Store::Store(std::string filename){
     //We open the file
     std::ifstream file;
     file.open(filename);
     if(file.fail()){
-        std::cerr << strerror(errno);
+        std::cout << "File open failed.";
+        return;
     }
     std::vector<std::string> vec;
     std::string line, name;
@@ -66,7 +33,7 @@ Store::Store(std::string filename){
             if(condition == "Very Fine"){veryFineComics[c1.comicName].push_back(c1);}
             if(condition == "Near Mint"){nearMintComics[c1.comicName].push_back(c1);}
         }
-
+    //strtol documentat
     }
     file.close();
 }
@@ -82,7 +49,7 @@ int transform(std::string condition){
     if(condition == "Near Mint"){return 6;}
     return 0;
 }
-
+//folosit enum la transform TODO
 std::vector<Comic> Store::findComic(std::string comicName, int maxSum, std::string desiredCondition) {
     switch (transform(desiredCondition)) {
         case 6: 
@@ -139,100 +106,4 @@ std::ostream& operator<<(std::ostream& os, const Store& st){
         }
     }
     return os;
-}
-//END OF STORE
-
-//USER CLASS
-
-User::User(std::string user_, std::string pass_){
-    this->username = user_;
-    this->password = pass_;
-}
-
-std::string User::getUsername(){
-    return this->username;
-}
-
-std::string User::getPassword(){
-    return this->password;
-}
-
-bool Database::isValid(User &u1){
-    return validUsers[u1.getUsername()] == u1.getPassword();
-}
-
-void User::addToWishlist(int id, Comic &comic) {
-    wishlist.insert({wishlist.size()+1, comic});
-    priceToBePaid += comic.getComicPrice();
-}
-
-void User::removeFromWishlist(int id) {
-    wishlist.erase(id);
-}
-
-void User::printWishlist() {
-    std::cout << "\nThe Wishlist, with a total price of" << priceToBePaid << ": \n";
-    for(auto i : wishlist){
-        std::cout << "ID: " << i.first << ' ';
-        std::cout << i.second;
-        std::cout << '\n';
-    }
-}
-
-bool User::isWishListEmpty(){
-    return wishlist.size() == 0;
-}
-
-std::ostream& operator<<(std::ostream& os, User &u1){
-    os << u1.username << ", you have " << u1.wishlist.size() << "comics in your wishlist, totalling " << u1.priceToBePaid << "RON. ";
-    return os;
-}
-
-//DATABASE CLASS
-Database::Database(std::string folderName, std::string user_,
-                   std::string pass_){
-    //database loading
-    for(const auto &entry : std::filesystem::directory_iterator(folderName)){
-        if(entry.path()!="bd/USERS.txt"){
-            Store storeToInsert = Store(entry.path());
-            stores.insert({storeToInsert.getStoreName(),storeToInsert});
-        }
-        else{
-            int size = 0;
-            std::ifstream readFromUsers("bd/USERS.txt");
-            std::string line;
-            while(std::getline(readFromUsers, line)){
-                auto firstSpace = line.find(' ');
-                std::string user = line.substr(0, firstSpace);
-                std::string password = line.substr(firstSpace+1, std::string::npos);
-                validUsers.insert({user, password});
-            }
-        }
-    }
-}
-
-std::map<int, Comic> Database::findComics(std::string desiredName, int maxSum, std::string desiredCondition) {
-    std::map<int, Comic> bigResult;
-    int id = 1;
-    for(auto i : stores){
-        auto result = i.second.findComic(desiredName, maxSum, desiredCondition);
-        if(result.size()){
-            for(auto j : result){
-                j.setStoreName(i.first);
-                bigResult.insert({id, j});
-                id++;
-            }
-        }
-        else{
-            
-        }
-    }
-    return bigResult;
-}
-
-void Database::printDatabase(){
-    std::cout << "The stores and comics: " << std::endl;
-    for(auto i : stores){
-        std::cout << "Store name: " << i.first  << i.second << '\n';
-    }
 }

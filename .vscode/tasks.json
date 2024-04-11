@@ -8,7 +8,11 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "gestiune.cpp",
+                "Comic.cpp",
+                "User.cpp",
+                "Wishlist.cpp",
+                "Database.cpp",
+                "Store.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
