@@ -1,10 +1,9 @@
-#include "interface.h"
+#include "./interface.h"
 
 int main(){
-    MainInterface interface;
-    interface.run();
+    MainInterface::run();
     return 0;
 }
 
-//TODO CLASA PROPRIE .H SI .CPP
-//README TODO
+//TODO CLASA PROPRIE .H SI .CPP checked
+//README TODO   

@@ -1,8 +1,11 @@
-#include "./Store.h"
+#include "./ComicStore.h"
 #include <fstream>
 #include <iostream>
 #include <cerrno>
-Store::Store(std::string filename){
+#include <vector>
+#include <cstring>
+
+ComicStore::ComicStore(std::string filename) : Store(filename){
     //We open the file
     std::ifstream file;
     file.open(filename);
@@ -22,22 +25,24 @@ Store::Store(std::string filename){
         //that define the Comic, we add the Comic to the Store list
         if(vec.size()%3==0){
             std::string condition = vec[vec.size()-1];
-            Comic c1 = Comic(vec[vec.size()-3],
+            char* c1name = new char[vec[vec.size()-3].size()];
+            strcpy(c1name, vec[vec.size()-3].c_str());
+            Comic c1 = Comic(c1name,
                              std::atoi(vec[vec.size()-2].c_str()),
                              condition);
-            allComics.insert({c1.comicName,{c1}});
-            if(condition == "Fair"){fairComics[c1.comicName].push_back(c1);}
-            if(condition == "Good"){goodComics[c1.comicName].push_back(c1);}
-            if(condition == "Very Good"){veryGoodComics[c1.comicName].push_back(c1);}
-            if(condition == "Fine"){fineComics[c1.comicName].push_back(c1);}
-            if(condition == "Very Fine"){veryFineComics[c1.comicName].push_back(c1);}
-            if(condition == "Near Mint"){nearMintComics[c1.comicName].push_back(c1);}
+            //char* c1name = dynamic_cast<Item*>(&c1)->getItemName();
+            allComics.insert({c1name,{c1}});
+            if(condition == "Fair"){fairComics[c1name].push_back(c1);}
+            if(condition == "Good"){goodComics[c1name].push_back(c1);}
+            if(condition == "Very Good"){veryGoodComics[c1name].push_back(c1);}
+            if(condition == "Fine"){fineComics[c1name].push_back(c1);}
+            if(condition == "Very Fine"){veryFineComics[c1name].push_back(c1);}
+            if(condition == "Near Mint"){nearMintComics[c1name].push_back(c1);}
         }
     //strtol documentat
     }
     file.close();
 }
-
 
 int transform(std::string condition){
     if(condition == "Poor"){return 0;}
@@ -49,8 +54,8 @@ int transform(std::string condition){
     if(condition == "Near Mint"){return 6;}
     return 0;
 }
-//folosit enum la transform TODO
-std::vector<Comic> Store::findComic(std::string comicName, int maxSum, std::string desiredCondition) {
+std::vector<Comic> ComicStore::findItem(std::string comicName, int maxSum, std::vector<std::string> params){
+    std::string desiredCondition = params[0];
     switch (transform(desiredCondition)) {
         case 6: 
             return nearMintComics[comicName];
@@ -96,7 +101,7 @@ std::vector<Comic> Store::findComic(std::string comicName, int maxSum, std::stri
     return allComics[comicName];
 }
 
-std::ostream& operator<<(std::ostream& os, const Store& st){
+std::ostream& operator<<(std::ostream& os, const ComicStore& st){
     for(auto i : st.allComics){
         std::cout << "The comic ";
         std::cout << i.first;

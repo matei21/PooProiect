@@ -1,19 +1,21 @@
 #ifndef POO_WISHLIST_H
 #define POO_WISHLIST_H
-#include "./Comic.h"
+#include "./Item.h"
 #include <map>
 class Wishlist{
-private:
-    std::map<int, Comic> wishlist;
+protected:
+    std::map<int, Item*> wishlist;
     int priceToBePaid;
 public:
-    void addToWishlist(int id, Comic &comic);
-    void removeFromWishlist(int id);
-    void printWishlist();
+    virtual void addToWishlist(int id, Item *item);
+    virtual void removeFromWishlist(int id);
+    virtual void printWishlist();
     bool isWishListEmpty();
     int getSize();
     int getPrice();
+    virtual ~Wishlist(){};
     friend class User;
+    friend class MainInterface;
 };
 
 #endif

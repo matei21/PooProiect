@@ -1,8 +1,15 @@
 #include "./User.h"
 #include <iostream>
+
+int User::userCount = 0;
 User::User(std::string user_, std::string pass_){
     this->username = user_;
     this->password = pass_;
+    userCount++;
+}
+
+int User::getUserCount(){
+    return userCount;
 }
 
 std::string User::getUsername(){

@@ -1,24 +1,26 @@
 #ifndef POO_COMIC_H
 #define POO_COMIC_H
+#include "./Item.h"
 #include <string>
-class Comic{
+#include <cstring>
+class Comic : public Item{
 private:
-    //The 3 main variables that define a comic / update: apparently there was one more
-    
-    std::string comicName;
-    long int comicPrice;
+    //std::string comicName;
+    //long int comicPrice;
     std::string condition;
-    std::string storeBelong;
+    //std::string storeBelong;
     //The store must have full access to the Comic
     friend class Store;
 
 public:
     Comic();
-    Comic(std::string name_, int price_=0, std::string condition="Fine");
-    void setStoreName(std::string nameToSet);
-    long int getComicPrice() const;
-    std::string getStoreBelongName(){return storeBelong;};
+    Comic(char* name_, int price_=0, std::string condition="Fine");
+    Comic(const Comic& other);
+    void setStoreName(char* nameToSet);
+    std::string getStoreBelongName();
+    Comic& operator=(Comic& other);
     friend std::ostream& operator<<(std::ostream& os, const Comic& com);
+    //~Comic(){};
 };
 
 #endif

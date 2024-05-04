@@ -1,15 +1,18 @@
 #ifndef POO_INTERFACE_H
 #define POO_INTERFACE_H
+#include "./AbstractStore.h"
 #include "./Comic.h"
-#include "./Store.h"
+#include "./ComicStore.h"
 #include "./User.h"
 #include "./Database.h"
+#include "./ComicWishlist.h"
 #include "./Wishlist.h"
+#include "./Item.h"
 #include <iostream>
 #include <sstream>
 class MainInterface{
 public:
-    void run(){
+    static void run(){
         //TODO: implement the wishlist and total sum needed, the wishlist is user-specific checked
     //TODO: implement isValid() inside DB with inheritance and user object checked
     std::string usernameFromConsole, passwordFromConsole;

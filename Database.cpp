@@ -2,13 +2,14 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <cstring>
 Database::Database(std::string folderName, std::string user_,
                    std::string pass_){
     //database loading
     for(const auto &entry : std::filesystem::directory_iterator(folderName)){
         if(entry.path()!="bd/USERS.txt"){
-            Store storeToInsert = Store(entry.path());
-            stores.insert({storeToInsert.getStoreName(),storeToInsert});
+            ComicStore storeToInsert = ComicStore(entry.path());
+            stores.insert({storeToInsert.getStoreName(),std::move(storeToInsert)});
         }
         else{
             int size = 0;
@@ -28,10 +29,14 @@ std::map<int, Comic> Database::findComics(std::string desiredName, int maxSum, s
     std::map<int, Comic> bigResult;
     int id = 1;
     for(auto i : stores){
-        auto result = i.second.findComic(desiredName, maxSum, desiredCondition);
+        std::vector<std::string> params;
+        params.push_back(desiredCondition); 
+        auto result = i.second.findItem(desiredName, maxSum, params);
         if(result.size()){
             for(auto j : result){
-                j.setStoreName(i.first);
+                char* toSet = new char[i.first.size()];
+                strcpy(toSet, i.first.c_str());
+                j.setStoreName(toSet);
                 bigResult.insert({id, j});
                 id++;
             }
