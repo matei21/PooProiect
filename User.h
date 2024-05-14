@@ -1,23 +1,32 @@
 #ifndef POO_USER_H
 #define POO_USER_H
 #include "./ComicWishlist.h"
+
 class User{
 private:
     static int userCount;
+    
+    //class composition, each user has a wishlist
     ComicWishlist userwishlist;
-    //Basic user-password combination
-    //update: the wishlist is also one of the most important features of the db now
+    
+    //the 2 main variables that define a user
     std::string username;
     std::string password;
 public: 
-    //Possibly useful in the future?
-    //update: yes, one of the good predictions. These getters are used in the 
-    //authentication program in order to interrogate the users map of the db
+    //static getter for the static variable
     static int getUserCount();
+
+    //basic constructor  
     User(std::string user_, std::string pass_);
+
+    //basic getters
     std::string getPassword();
     std::string getUsername();
+
+    //operator<< overload
     friend std::ostream& operator<<(std::ostream& os, User &u1); 
+
+    //we need access from the MainInterface
     friend class MainInterface;
 };
 #endif

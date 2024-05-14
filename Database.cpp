@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include "InvalidUser.h"
 Database::Database(std::string folderName, std::string user_,
                    std::string pass_){
     //database loading
@@ -56,5 +57,11 @@ void Database::printDatabase(){
 }
 
 bool Database::isValid(User &u1){
-    return validUsers[u1.getUsername()] == u1.getPassword();
+    if(validUsers[u1.getUsername()] == u1.getPassword()){
+        return true;
+    }
+    else{
+        throw InvalidUser();
+        return false;
+    }
 }

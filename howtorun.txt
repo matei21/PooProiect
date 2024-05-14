@@ -5,3 +5,10 @@ The files are perfect in order for the project to run on VSCode and CLion, but
 -cmake needs to be installed and the path to cmake needs to be specified inside of settings.json
 -on Clion at least, the Run>Edit Configurations>Working directory needs to be set to PooProiect so that it sees the subfolders and knows where to initialise the "database" from
 -- g++ needs to be modern, at least 2017, otherwise it doesn't recognize <filesystem> library
+
+Test cases:
+-the command list is shown inside of the interface as well, but:
+1 to search, you can search for The Amazing Spider-Man #1 (1963), max value 5000, min condition can be anything
+then press 1 to add it to the wishlist.
+
+you can press 2 after that to view the entire list, after that press 3 in order to show the already added comic (and 1 in order to remove it from the wishlist). then press 0 to exit.

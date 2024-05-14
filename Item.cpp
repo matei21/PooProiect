@@ -1,6 +1,8 @@
 #include "./Item.h"
 #include <iostream>
 #include <cstring>
+
+//basic constructors
 Item::Item() : itemPrice(0){
 
 }
@@ -8,6 +10,7 @@ Item::Item(char* name_, int price_) : itemName(name_), itemPrice(price_){
 
 }
 
+//basic getters
 int Item::getPrice() const {
     long int priceDouble = this->itemPrice;
     return priceDouble;
@@ -19,17 +22,19 @@ char* Item::getItemName(){
     return toRet;
 }
 
+//basic print
 void Item::printItem(){
     std::cout << "Name: " << itemName << ", " <<
        itemPrice << " lei\n";
 }
 
+//operator<< overload
 std::ostream& operator<<(std::ostream& os, Item& item){
     item.printItem();
     return os;
 }
 
-// Copy constructor
+// copy constructor
 Item::Item(const Item& other) 
     : itemPrice(other.itemPrice) {
     if (other.itemName) {
@@ -47,7 +52,7 @@ Item::Item(const Item& other)
     }
 }
 
-// Copy assignment operator
+//operator=
 Item& Item::operator=(const Item& other){
     if (this != &other) {
         delete[] itemName;
@@ -72,6 +77,7 @@ Item& Item::operator=(const Item& other){
     return *this;
 }
 
+//destructor which frees the dynamically allocated memory
 Item::~Item(){
    delete[] itemName;
    delete[] storeBelong;

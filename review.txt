@@ -1,0 +1,10 @@
+Ce a mers in implementare:
+-generalizarea claselor cu ajutorul AbstractStore si Wishlist, care folosesc clasa Item, toate acestea fiind clase abstracte, asadar proiectul poate fi extins pentru a se cauta si alte produse, nu doar benzi desenate, insa acest lucru nu reprezinta scopul acestei teme deocamdata
+-folosirea exceptiei "InvalidUser" pentru baza de date, pentru o mai buna gestionare e input-ului utilizatorului
+-folosirea functiilor virtuale sau pur virtuale pentru a obliga anumite clase sa implementeze niste feature-uri. De asemenea, mostenirea de la Item la Comic merge destul de bine, in opinia mea
+-memory management-ul pentru alocare dinamica a mers bine, dupa parerea mea, astept un review pe partea asta daca se observa orice problema, insa eu cel putin nu am vazut vreo problema grava (un delete lipsa)
+
+Ce nu a mers in implementare:
+-impartirea in include/ si src/ nu a mers, din cauza faptului ca libraria filesystem adaptata la noul format cu folderele include si src trimite niste parametrii catre constructorul ComicStore() care are probleme grave cu alocarea dinamica doar din cauza acestei schimbari. Nu am inteles pana in momentul de fata de ce, insa voi mai detalia acest subiect si ma voi mai interesa pana la urmatorul deadline.
+-folosirea unui mecanism de upcast sau alte idei pentru a face si transformarea Item->Comic, mi-am dat seama ca ar fi interesant de implementat si pentru a satisface complet cerintele prea tarziu, astfel ca nu am mai avut timp acum, insa o voi trece pe lista pentru urmatoarele checkpoint-uri
+-exceptiile pentru user input-ul prost (error handling in caz ca se scriu alte comenzi decat cele existente), nu am mai avut timp pentru asta, deoarece in timpul vacantei nu m-am uitat pe Teams si nu am vazut ca am trecut peste deadline, imi cer mii de scuze pentru aceasta

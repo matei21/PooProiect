@@ -1,9 +1,9 @@
 #include "./interface.h"
 
+//as simple as possible, we just run the static function run from the MainInterface class
 int main(){
     MainInterface::run();
     return 0;
 }
 
-//TODO CLASA PROPRIE .H SI .CPP checked
-//README TODO   
+
