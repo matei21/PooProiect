@@ -21,6 +21,6 @@ public:
     //the most important function, the comic finder of the database
     //it takes into account the name of the comic, the budget and the minimum
     //condition that the user wants the comic to be in
-    std::map<int,Comic> findComics(std::string desiredName, int maxSum, std::string desiredCondition);
+    std::map<int,std::shared_ptr<Item>> findComics(std::string desiredName, int maxSum, std::string desiredCondition);
 };
 #endif

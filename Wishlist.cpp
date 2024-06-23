@@ -1,12 +1,6 @@
 #include "./Wishlist.h"
 #include <iostream>
 
-//we can add a generic Item to the wishlist
-void Wishlist::addToWishlist(int id, Item *item) {
-    wishlist[wishlist.size()+1] = item;
-    priceToBePaid += item->getPrice();
-}
-
 
 //we can remove something from the wishlist using the id, this is useful for the ComicWishlist
 void Wishlist::removeFromWishlist(int id) {
@@ -29,7 +23,7 @@ int Wishlist::getPrice(){
 
 //basic print function
 void Wishlist::printWishlist(){
-    for(auto it = wishlist.begin(); it != wishlist.end(); it++){
-        std::cout << it->second << '\n';
-    }
+    std::for_each(wishlist.begin(), wishlist.end(), [](const auto& item) {
+        std::cout << *item.second << '\n';
+    });
 }

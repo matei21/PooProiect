@@ -64,52 +64,98 @@ int transform(std::string condition){
 }
 
 //findItem function that returns the Comics that match the desired condition
-std::vector<Comic> ComicStore::findItem(std::string comicName, int maxSum, std::vector<std::string> params){
+std::vector<std::shared_ptr<Item>> ComicStore::find(std::string comicName, int maxSum, std::vector<std::string> params){
     std::string desiredCondition = params[0];
     switch (transform(desiredCondition)) {
         //for each condition which is now a case, we create results that will look at the right maps
-        case 6: 
-            return nearMintComics[comicName];
+        case 6:{ 
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i: nearMintComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            return result;
+        }
         case 5:{  
-            std::vector<Comic> result = nearMintComics[comicName];
-            for(auto i: veryFineComics[comicName]){result.push_back(i);}
+            std::vector<std::shared_ptr<Item>> result; 
+            for(auto i: veryFineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
             return result;
         }
         case 4:{  
-            std::vector<Comic> result = nearMintComics[comicName];
-            for(auto i: veryFineComics[comicName]){result.push_back(i);}
-            for(auto i: fineComics[comicName]){result.push_back(i);}
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i: veryFineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: fineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
             return result;
         }
         case 3:{  
-            std::vector<Comic> result = nearMintComics[comicName];
-            for(auto i: veryFineComics[comicName]){result.push_back(i);}
-            for(auto i: fineComics[comicName]){result.push_back(i);}
-            for(auto i: veryGoodComics[comicName]){result.push_back(i);}
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i: veryFineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: fineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: veryGoodComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
             return result;
         }
         case 2:{ 
-            std::vector<Comic> result = nearMintComics[comicName];
-            for(auto i: veryFineComics[comicName]){result.push_back(i);}
-            for(auto i: fineComics[comicName]){result.push_back(i);}
-            for(auto i: veryGoodComics[comicName]){result.push_back(i);}
-            for(auto i: goodComics[comicName]){result.push_back(i);}
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i: veryFineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: fineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: veryGoodComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: goodComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
             return result;
         }
         case 1:{ 
-            std::vector<Comic> result = nearMintComics[comicName];
-            for(auto i: veryFineComics[comicName]){result.push_back(i);}
-            for(auto i: fineComics[comicName]){result.push_back(i);}
-            for(auto i: veryGoodComics[comicName]){result.push_back(i);}
-            for(auto i: goodComics[comicName]){result.push_back(i);}
-            for(auto i: fairComics[comicName]){result.push_back(i);}
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i: veryFineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: fineComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: veryGoodComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: goodComics[comicName]){    
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            for(auto i: fairComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
             return result;
         }
         case 0:{ 
-            return allComics[comicName]; 
+            std::vector<std::shared_ptr<Item>> result;
+            for(auto i : allComics[comicName]){
+                result.push_back(std::dynamic_pointer_cast<Item>(std::make_shared<Comic>(i)));
+            }
+            return result; 
         }     
     }
-    return allComics[comicName];
+    std::vector<std::shared_ptr<Item>> result;
+            for(auto it : allComics){
+                for(auto i : it.second){
+                    std::shared_ptr<Comic> com = std::make_shared<Comic>(i);
+                    result.push_back(std::dynamic_pointer_cast<Item>(com));
+                }
+            }
+    return result; 
 }
 
 //basic operator<<

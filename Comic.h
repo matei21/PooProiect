@@ -24,9 +24,7 @@ public:
     //operator=
     Comic& operator=(Comic& other);
 
-    //operator<<
-    friend std::ostream& operator<<(std::ostream& os, const Comic& com);
-    
+    std::ostream& printItem(std::ostream& os);
     //we don't need to free memory because the Item class already does that
     ~Comic(){};
 };

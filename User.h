@@ -1,13 +1,13 @@
 #ifndef POO_USER_H
 #define POO_USER_H
-#include "./ComicWishlist.h"
+#include "./Wishlist.h"
 
 class User{
 private:
     static int userCount;
     
     //class composition, each user has a wishlist
-    ComicWishlist userwishlist;
+    Wishlist userwishlist;
     
     //the 2 main variables that define a user
     std::string username;

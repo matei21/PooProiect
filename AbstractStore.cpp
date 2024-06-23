@@ -3,7 +3,8 @@
 #include <fstream>
 
 //(abstract) Store constructor
-Store::Store(std::string name){ 
-    this->storeName = name;
+Store::Store(std::string filename){ 
+    
 }
+
 

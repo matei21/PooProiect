@@ -12,14 +12,11 @@ Item::Item(char* name_, int price_) : itemName(name_), itemPrice(price_){
 
 //basic getters
 int Item::getPrice() const {
-    long int priceDouble = this->itemPrice;
-    return priceDouble;
+    return this->itemPrice;
 }
 
-char* Item::getItemName(){
-    char* toRet = new char[strlen(itemName)];
-    strcpy(toRet, itemName);
-    return toRet;
+std::string Item::getItemName(){
+    return std::string(itemName);
 }
 
 //basic print

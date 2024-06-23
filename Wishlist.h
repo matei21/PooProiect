@@ -2,17 +2,22 @@
 #define POO_WISHLIST_H
 #include "./Item.h"
 #include <map>
-
+#include <memory>
+#include <algorithm>
 class Wishlist{
 protected:
     //wishlist of items and the total price to be paid
-    std::map<int, Item*> wishlist;
-    int priceToBePaid;
+    std::map<int, std::shared_ptr<Item>> wishlist;
+    int priceToBePaid = 0;
 public:
+    template <class T>
     //virtual functions that can be used in the derived classes, but also customized
-    virtual void addToWishlist(int id, Item *item);
-    virtual void removeFromWishlist(int id);
-    virtual void printWishlist();
+    void addToWishlist(int id, std::shared_ptr<T> item){
+        wishlist[wishlist.size()+1] = std::dynamic_pointer_cast<Item>(item);
+        priceToBePaid += item->getPrice();
+    };
+    void removeFromWishlist(int id);
+    void printWishlist();
 
     //bool function to check if the wishlist is empty
     bool isWishListEmpty();

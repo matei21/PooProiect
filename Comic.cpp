@@ -52,9 +52,8 @@ Comic& Comic::operator=(Comic& other){
     return *this;
 }
 
-//operator<<, we could also use the Item operator<< or displayItem() but it's good to have it
-std::ostream& operator<<(std::ostream& os, const Comic& com){
-    os << "Name: " << com.itemName << ", " <<
-       com.itemPrice << " lei in the condition of: " << com.condition << '\n';
+std::ostream& Comic::printItem(std::ostream& os){
+    os << "Name: " << this->itemName << ", " <<
+       this->itemPrice << " lei in the condition of: " << this->condition << '\n';
     return os;
 }

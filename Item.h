@@ -26,13 +26,13 @@ public:
 
     //basic getters
     int getPrice() const;
-    char* getItemName();
+    std::string getItemName();
 
     //basic print
     void printItem();
 
     //operator<< overload
-    friend std::ostream& operator<<(std::ostream& os, const Item& item);
+    friend std::ostream& operator<<(std::ostream& os, Item& item);
     
     //operator=
     Item& operator=(const Item& other);

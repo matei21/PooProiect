@@ -1,0 +1,12 @@
+-Book abstract class and Comic derives from it ///x//// -> Item abstract class, work in progress
+
+User admin and normal ///v//// -> good idea, not yet started
+
+ABSTRACT CLASS STORE PUR VIRTUAL GETSTORENAME ///v//// -> good idea, work in progress
+INTERAFATA USER ///v//// -> sounds like good idea, not yet started
+
+
+ 
+PARAMETERS FOR SEARCH AS STRUCT IN FINDITEM FUNCTION ///v//// good idea, not yet started 
+name dynamically allocated + IMPLEMENT DESTRUCTOR //same as above
+wishlist for items + comicswishlist //same as above

@@ -24,7 +24,7 @@ public:
     
     //the findItem uses the params to search for the comics
     //TODO>: implement the search for items and use more casts for generalization
-    std::vector<Comic> findItem(std::string comicName, int maxSum, std::vector<std::string> params);
+    std::vector<std::shared_ptr<Item>> find(std::string comicName, int maxSum, std::vector<std::string> params) override;
 
     //operator<<
     friend std::ostream& operator<<(std::ostream& os, const ComicStore& st);
